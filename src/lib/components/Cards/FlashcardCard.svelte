@@ -6,10 +6,10 @@
 	let { flashcard } = $props();
 </script>
 
-<Card>
+<Card class="flex flex-col">
 	<h3 class="text-preset-3 p-4 font-semibold">{flashcard.question}</h3>
 	<Divider orientation="horizontal" />
-	<div class="flex flex-col gap-2 p-4">
+	<div class="flex flex-1 flex-col gap-2 p-4">
 		<p class="text-preset-5 opacity-60">Answer:</p>
 		<p class="text-preset-4">{flashcard.answer}</p>
 	</div>
