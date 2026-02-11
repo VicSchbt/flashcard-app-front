@@ -1,1 +1,217 @@
 @import 'tailwindcss';
+
+/* ===== FONTS ===== */
+@font-face {
+	font-family: 'Poppins';
+	src: url('/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+	/* Neutral colors */
+	--neutral-900: #2e1401;
+	--neutral-600: #6d5b4d;
+	--neutral-100: #f7f3f0;
+	--neutral-0: #ffffff;
+
+	/* Accent colors */
+	--yellow-500: #f8cb46;
+	--blue-400: #92adeb;
+	--blue-600: #5072c7;
+	--teal-400: #47d9c9;
+	--pink-400: #fc8ae5;
+	--pink-500: #f073a3;
+	--pink-700: #e11966;
+
+	/* Global typography values */
+	--line-height-tight: 120%;
+	--line-height-normal: 140%;
+	--line-height-relaxed: 130%;
+	--letter-spacing-normal: 0;
+
+	/* Text preset 1 - Main headings (responsive) */
+	--text-preset-1-mobile: 1.5rem; /* 24px */
+	--text-preset-1-tablet: 2rem; /* 32px */
+	--text-preset-1-desktop: 2.5rem; /* 40px */
+
+	/* Text preset 2 - Section headings */
+	--text-preset-2: 1.5rem; /* 24px */
+
+	/* Text preset 3 - Card titles */
+	--text-preset-3: 1.25rem; /* 20px */
+
+	/* Text preset 4 - Body text */
+	--text-preset-4: 1rem; /* 16px */
+
+	/* Text preset 5 - Secondary text */
+	--text-preset-5: 0.875rem; /* 14px */
+
+	/* Text preset 6 - Small labels */
+	--text-preset-6: 0.75rem; /* 12px */
+	--text-preset-6-letter-spacing: -0.03em;
+}
+
+/* ===== TAILWIND THEME ===== */
+@theme {
+	/* Colors */
+	--color-neutral: {
+		900: #2e1401;
+		600: #6d5b4d;
+		100: #f7f3f0;
+		0: #ffffff;
+	};
+
+	--color-yellow: {
+		500: #f8cb46;
+	};
+
+	--color-blue: {
+		400: #92adeb;
+		600: #5072c7;
+	};
+	--color-teal: {
+		400: #47d9c9;
+	};
+	--color-pink: {
+		400: #fc8ae5;
+		500: #f073a3;
+		700: #e11966;
+	};
+
+	/* Fonts */
+	--font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+	*,
+	::before,
+	::after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+/* ===== GLOBAL STYLES ===== */
+body {
+	font-family: var(--font-sans);
+	background-color: var(--neutral-100);
+	color: var(--neutral-900);
+	padding: 1rem 1rem 3rem 1rem;
+	height: 100vh;
+}
+
+/* ===== TEXT PRESETS ===== */
+
+/* Preset 1 - Main headings (responsive: 40px/32px/24px) */
+.text-preset-1 {
+	font-size: var(--text-preset-1-mobile);
+	font-weight: 700;
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+@media (min-width: 481px) {
+	.text-preset-1 {
+		font-size: var(--text-preset-1-tablet);
+	}
+}
+
+@media (min-width: 769px) {
+	.text-preset-1 {
+		font-size: var(--text-preset-1-desktop);
+	}
+}
+
+/* Preset 2 - Section headings (24px) */
+.text-preset-2 {
+	font-size: var(--text-preset-2);
+	font-weight: 600;
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Preset 3 - Card titles (20px) */
+.text-preset-3 {
+	font-size: var(--text-preset-3);
+	font-weight: 600;
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Preset 4 - Body text (16px) */
+.text-preset-4 {
+	font-size: var(--text-preset-4);
+	font-weight: 400;
+	line-height: var(--line-height-normal);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-preset-4-medium {
+	font-size: var(--text-preset-4);
+	font-weight: 500;
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-preset-4-semibold {
+	font-size: var(--text-preset-4);
+	font-weight: 600;
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Preset 5 - Secondary text (14px) */
+.text-preset-5 {
+	font-size: var(--text-preset-5);
+	font-weight: 400;
+	line-height: var(--line-height-normal);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-preset-5-medium {
+	font-size: var(--text-preset-5);
+	font-weight: 500;
+	line-height: var(--line-height-normal);
+	letter-spacing: var(--letter-spacing-normal);
+}
+
+/* Preset 6 - Small labels (12px) */
+.text-preset-6 {
+	font-size: var(--text-preset-6);
+	font-weight: 500;
+	line-height: var(--line-height-relaxed);
+	letter-spacing: var(--text-preset-6-letter-spacing);
+}
+
+/* ===== SHADOWS ===== */
+.shadow-xs {
+	box-shadow: 1px 2px 0 0 var(--neutral-900);
+}
