@@ -7,7 +7,7 @@
 
 <div class="app-container flex flex-col gap-4 bg-neutral-100">
 	<Navbar />
-	<main>
+	<main class="flex flex-col gap-4">
 		{@render children()}
 	</main>
 </div>

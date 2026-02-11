@@ -1,9 +1,5 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
 import type { Flashcard } from '$lib/types';
-
-export const flashcards = writable<Flashcard[]>([]);
-
-export const currentCard = writable<Flashcard | null>(null);
 
 function createFlashcardStore() {
 	const { subscribe, set, update } = writable<Flashcard[]>([]);
@@ -23,3 +19,11 @@ function createFlashcardStore() {
 }
 
 export const flashcardStore = createFlashcardStore();
+
+export const flashcardCategories = derived(flashcardStore, ($flashcards) => {
+	const categories = new Map<string, number>();
+	$flashcards.forEach((card: Flashcard) => {
+		categories.set(card.category, (categories.get(card.category) || 0) + 1);
+	});
+	return categories;
+});
