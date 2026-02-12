@@ -14,7 +14,22 @@ function createFlashcardStore() {
 		markAsKnown: (id: string) =>
 			update((cards) =>
 				cards.map((card) => (card.id === id ? { ...card, knownCount: card.knownCount + 1 } : card))
-			)
+			),
+		create: async (flashcard: Flashcard) => {
+			const response = await fetch('/api/flashcards', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(flashcard)
+			});
+			if (!response.ok) {
+				throw new Error('Failed to create flashcard');
+			}
+			const data = await response.json();
+			update((cards) => [...cards, data.flashcard]);
+			return data.flashcard;
+		}
 	};
 }
 
