@@ -3,11 +3,19 @@
   import { onMount } from 'svelte';
   import { flashcardStore } from '$lib/stores/flashcards';
   import AddFlashcardForm from '$lib/components/forms/AddFlashcardForm.svelte';
+  import type { PageProps } from './$types';
+
+  let { data, form }: PageProps = $props();
 
   onMount(() => {
     flashcardStore.load();
   });
 </script>
 
-<AddFlashcardForm />
+<AddFlashcardForm
+  bind:form
+  onSuccess={() => {
+    flashcardStore.load();
+  }}
+/>
 <FlashcardList />

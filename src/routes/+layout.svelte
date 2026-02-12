@@ -5,9 +5,9 @@
   let { children } = $props();
 </script>
 
-<div class="app-container flex flex-col gap-4 bg-neutral-100">
+<div class="app-container flex flex-col gap-6 bg-neutral-100">
   <Navbar />
-  <main class="flex flex-col gap-4">
+  <main class="flex flex-col gap-6">
     {@render children()}
   </main>
 </div>
