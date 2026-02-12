@@ -63,11 +63,11 @@ A `data.json` file is provided for the flashcard data. Each flashcard object has
 
 ```json
 {
-	"id": "fc001",
-	"question": "What does HTML stand for?",
-	"answer": "HyperText Markup Language",
-	"category": "Web Development",
-	"knownCount": 0
+  "id": "fc001",
+  "question": "What does HTML stand for?",
+  "answer": "HyperText Markup Language",
+  "category": "Web Development",
+  "knownCount": 0
 }
 ```
 
