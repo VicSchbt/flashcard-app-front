@@ -6,6 +6,7 @@
     iconPath?: string;
     iconAlt?: string;
     class?: string;
+    onclick?: () => void;
   }
 
   let {
@@ -15,11 +16,13 @@
     iconPath,
     iconAlt,
     class: className = '',
+    onclick,
   }: Props = $props();
 </script>
 
 <button
   {type}
+  {onclick}
   class="button text-preset-4-medium flex items-center gap-2 rounded-full px-5 py-3 {style} {className}"
 >
   {#if iconPath}

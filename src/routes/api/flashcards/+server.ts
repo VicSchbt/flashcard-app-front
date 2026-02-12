@@ -1,6 +1,5 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
-
-const JSON_SERVER_URL = 'http://localhost:3001';
+import { JSON_SERVER_URL } from '$env/static/private';
 
 export const GET: RequestHandler = async () => {
   try {

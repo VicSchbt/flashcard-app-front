@@ -30,6 +30,17 @@ function createFlashcardStore() {
       update((cards) => [...cards, data.flashcard]);
       return data.flashcard;
     },
+    delete: async (id: string) => {
+      const response = await fetch(`/api/flashcards/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete flashcard');
+      }
+      const data = await response.json();
+      update((cards) => cards.filter((card) => card.id !== id));
+      return data.message;
+    },
   };
 }
 

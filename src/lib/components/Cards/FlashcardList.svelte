@@ -3,6 +3,7 @@
   import type { Flashcard } from '$lib/types';
   import FlashcardCard from './FlashcardCard.svelte';
   import { shuffleArray } from '$lib/utils';
+  import ConfirmationDialog from '../dialog/ConfirmationDialog.svelte';
 
   const flashcards = $derived($flashcardStore);
   const categories = $derived(flashcardCategories);
@@ -11,6 +12,8 @@
   let hideMasteredCards = $state(false);
   let showAllCategories = $state(false);
   let displayedFlashcards = $state<Flashcard[]>([]);
+  let dialogOpen = $state(false);
+  let selectedFlashcard: Flashcard | null = $state(null);
 
   const filteredFlashcards = $derived(
     flashcards.filter((flashcard) => {
@@ -27,6 +30,13 @@
 
   const handleShuffle = () => {
     displayedFlashcards = shuffleArray(filteredFlashcards);
+  };
+
+  const handleDelete = () => {
+    if (!selectedFlashcard) return;
+    flashcardStore.delete(selectedFlashcard.id);
+    dialogOpen = false;
+    selectedFlashcard = null;
   };
 </script>
 
@@ -72,11 +82,35 @@
 </div>
 
 <!-- Cards -->
-<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-  {#each displayedFlashcards as flashcard}
-    <FlashcardCard {flashcard} />
-  {/each}
-</div>
+{#if displayedFlashcards.length > 0}
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {#each displayedFlashcards as flashcard}
+      <FlashcardCard
+        {flashcard}
+        onEdit={() => {}}
+        onDelete={() => {
+          dialogOpen = true;
+          selectedFlashcard = flashcard;
+        }}
+      />
+    {/each}
+  </div>
+{:else}
+  <div class="flex flex-col gap-3">
+    <p class="text-preset-2">No cards yet</p>
+    <p class="text-preset-4">Add your first card using the form above and it will show up here.</p>
+  </div>
+{/if}
+
+<ConfirmationDialog
+  isOpen={dialogOpen}
+  title="Delete this card?"
+  description="This action can’t be undone."
+  confirmText="Delete Card"
+  cancelText="Cancel"
+  onConfirm={handleDelete}
+  onCancel={() => (dialogOpen = false)}
+/>
 
 <style>
   .select {
