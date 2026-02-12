@@ -41,6 +41,21 @@ function createFlashcardStore() {
       update((cards) => cards.filter((card) => card.id !== id));
       return data.message;
     },
+    update: async (id: string, updatedData: Partial<Flashcard>) => {
+      const response = await fetch(`/api/flashcards/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update flashcard');
+      }
+      const data = await response.json();
+      update((cards) => cards.map((card) => (card.id === id ? { ...card, ...updatedData } : card)));
+      return data.flashcard;
+    },
   };
 }
 

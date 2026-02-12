@@ -18,16 +18,19 @@
     success?: boolean;
   };
 
-  let {
-    form = $bindable(),
-    onSuccess,
-  }: { form?: FormState | null; onSuccess?: () => void | Promise<void> } = $props();
+  interface Props {
+    form?: FormState | null;
+    onSuccess?: () => void | Promise<void>;
+  }
+
+  let { form = $bindable(), onSuccess }: Props = $props();
   let isSubmitting = $state(false);
 </script>
 
 <Card class="flex flex-col gap-2 rounded-2xl p-5 shadow-lg">
   <form
     method="POST"
+    action="?/post"
     use:enhance={({ formElement }) => {
       console.log('Form submitting...');
 

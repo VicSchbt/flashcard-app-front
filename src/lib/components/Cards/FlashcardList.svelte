@@ -4,6 +4,14 @@
   import FlashcardCard from './FlashcardCard.svelte';
   import { shuffleArray } from '$lib/utils';
   import ConfirmationDialog from '../dialog/ConfirmationDialog.svelte';
+  import EditFlashcardDialog from '../dialog/EditFlashcardDialog.svelte';
+  import type { ActionData } from '../../../routes/all-cards/$types';
+
+  interface Props {
+    form: ActionData;
+  }
+
+  let { form }: Props = $props();
 
   const flashcards = $derived($flashcardStore);
   const categories = $derived(flashcardCategories);
@@ -12,7 +20,8 @@
   let hideMasteredCards = $state(false);
   let showAllCategories = $state(false);
   let displayedFlashcards = $state<Flashcard[]>([]);
-  let dialogOpen = $state(false);
+  let deleteDialogOpen = $state(false);
+  let editDialogOpen = $state(false);
   let selectedFlashcard: Flashcard | null = $state(null);
 
   const filteredFlashcards = $derived(
@@ -35,7 +44,7 @@
   const handleDelete = () => {
     if (!selectedFlashcard) return;
     flashcardStore.delete(selectedFlashcard.id);
-    dialogOpen = false;
+    deleteDialogOpen = false;
     selectedFlashcard = null;
   };
 </script>
@@ -87,9 +96,12 @@
     {#each displayedFlashcards as flashcard}
       <FlashcardCard
         {flashcard}
-        onEdit={() => {}}
+        onEdit={() => {
+          editDialogOpen = true;
+          selectedFlashcard = flashcard;
+        }}
         onDelete={() => {
-          dialogOpen = true;
+          deleteDialogOpen = true;
           selectedFlashcard = flashcard;
         }}
       />
@@ -103,13 +115,35 @@
 {/if}
 
 <ConfirmationDialog
-  isOpen={dialogOpen}
+  isOpen={deleteDialogOpen}
   title="Delete this card?"
   description="This action can’t be undone."
   confirmText="Delete Card"
   cancelText="Cancel"
   onConfirm={handleDelete}
-  onCancel={() => (dialogOpen = false)}
+  onCancel={() => (deleteDialogOpen = false)}
+/>
+
+<EditFlashcardDialog
+  isOpen={editDialogOpen}
+  flashcardId={selectedFlashcard?.id}
+  initialValues={selectedFlashcard
+    ? {
+        question: selectedFlashcard.question,
+        answer: selectedFlashcard.answer,
+        category: selectedFlashcard.category,
+      }
+    : undefined}
+  bind:form
+  onSuccess={() => {
+    flashcardStore.load();
+    editDialogOpen = false;
+    selectedFlashcard = null;
+  }}
+  onCancel={() => {
+    editDialogOpen = false;
+    selectedFlashcard = null;
+  }}
 />
 
 <style>

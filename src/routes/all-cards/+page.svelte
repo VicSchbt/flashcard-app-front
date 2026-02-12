@@ -18,4 +18,4 @@
     flashcardStore.load();
   }}
 />
-<FlashcardList />
+<FlashcardList {form} />
