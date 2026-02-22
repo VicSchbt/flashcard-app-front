@@ -4,6 +4,7 @@
     selectedCategories: string[];
     hideMasteredCards: boolean;
     onShuffle: () => void;
+    class?: string;
   }
 
   let {
@@ -11,12 +12,13 @@
     selectedCategories = $bindable(),
     hideMasteredCards = $bindable(),
     onShuffle,
+    class: className = '',
   }: Props = $props();
 
   let showAllCategories = $state(false);
 </script>
 
-<div class="flex justify-between">
+<div class="flex justify-between {className}">
   <!-- Filters -->
   <div class="filters flex flex-col gap-2.5 md:flex-row">
     <div class="relative">

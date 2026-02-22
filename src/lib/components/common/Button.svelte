@@ -1,6 +1,6 @@
 <script lang="ts">
   interface Props {
-    type?: 'button' | 'submit' | 'reset';
+    type?: 'button' | 'submit' | 'reset' | 'link';
     style?: 'primary' | 'secondary' | '';
     label: string;
     iconPath?: string;
@@ -21,7 +21,8 @@
 </script>
 
 <button
-  {type}
+  type={type === 'link' ? 'button' : type}
+  role={type === 'link' ? 'link' : 'button'}
   {onclick}
   class="button text-preset-4-medium flex items-center gap-2 rounded-full px-5 py-3 {style} {className}"
 >
